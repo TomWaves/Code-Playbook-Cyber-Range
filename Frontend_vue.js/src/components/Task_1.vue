@@ -13,7 +13,7 @@
         Populate the empty tasks with their ID and the empty gateways with a '+'
         for parallel flow and 'x' for an if condition.
       </p>
-      <!-- Link in Line 19 war nur ein Quick-Fix, da es Probleme beim Einbetten des Bildes gab; Link auch nicht mehr verfügbar, jedoch ist das Bild enthalten in https://github.com/TomWaves/Code-Playbook-Cyber-Range/tree/main/Playbook
+      <!-- Link in Line 19 war nur ein Quick-Fix, da es Probleme beim Einbetten des Bildes gab; Bild ist enthalten Folder: https://github.com/TomWaves/Code-Playbook-Cyber-Range/blob/main/Playbook/BPMN_modell_playbook_leer.png
       <div class="container">
         <img
           src="https://i.postimg.cc/DyPXzhbh/BPMN-modell-playbook-leer.png" //Link austauschen
