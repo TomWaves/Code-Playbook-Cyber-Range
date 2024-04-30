@@ -1,0 +1,16 @@
+{  "parallel--id080": {
+    "type": "parallel",
+    "name": "Block IP address of attacker",
+    "next_steps": ["single--id091", "single--id091"]
+  },
+  "single--id091": {
+    "type": "single",
+    "name": "Recreate user credentials",
+    "on_completion": "single--id100"
+  },
+  "single--id092": {
+    "type": "single",
+    "name": "Recover all affected systems",
+    "on_completion": "single--id100"
+  }
+}

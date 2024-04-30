@@ -1,0 +1,161 @@
+{
+  "type": "playbook",
+  "spec_version": "1.1",
+  "id": "playbook--DCA-2",
+  "name": "Credential Access Playbook",
+  "description": [
+    "This playbook is created for incidents regarding the compromise of access credentials for a service. Potential indicators for this incident are:",
+    "Sudden increase in logins to a system",
+    "Multiple login failures to a system",
+    "Patterns in the frequency of the logins",
+    "Unusual command line inputs"
+  ],
+  "playbook_types": ["detection", "investigation", "remediation"],
+
+  "created_by": "CSIRT--T01",
+  "created": "2022-12-12T16:30:00.000Z",
+  "modified": "2023-01-14T16:30:00.000Z",
+  "valid_from": "2023-01-14T16:30:0+-0.000Z",
+  "valid_until": "2023-04-14T16:30:00.000Z",
+
+  "derived_from": ["playbook--CAP-1"],
+
+  "priority": 3,
+  "severity": 70,
+  "impact": 5,
+  "labels": ["brute_force", "credential_access"],
+
+  "workflow_start": "start--id00",
+  "workflow": {
+    "start--id00": {
+      "type": "start",
+      "name": "Start Credential Access Playbook",
+      "on_completion": "parallel--id01"
+    },
+
+    "parallel--id010": {
+      "type": "parallel",
+      "name": "Analyze event log",
+      "description": "This step will analyze the log entry of the alerting SIEM agent.",
+      "next_steps": ["single--id021", "single--id022"],
+      "command": {
+        "type": "manual",
+        "command": "Open the event entry of the agent and analyze the log data on the usernames the attacker applied."
+      }
+    },
+
+    "single--id021": {
+      "type": "single",
+      "name": "Analyze affected system",
+      "description": "This step will analyze the background information on the affected system.",
+      "on_completion": "single--id030",
+      "command": {
+        "type": "manual",
+        "command": "Gather information on what services the system provides and if the system stores business sensitive information."
+      }
+    },
+
+    "single--id022": {
+      "type": "single",
+      "name": "Analyze privileges of exploited user",
+      "description": "This step will verify if the exploited user possesses access credentials for other systems outside the currently affected.",
+      "on_completion": "single--id030",
+      "command": {
+        "type": "manual",
+        "command": "Identify if the owner of the compromised credentials has access to other systems and through what credentials."
+      }
+    },
+
+    "single--id030": {
+      "type": "single",
+      "name": "Block access for exploited credentials",
+      "description": "This step will block access on the affected system for the exploited credentials",
+      "on_completion": "if--id040",
+      "command": {
+        "type": "manual",
+        "command": "Go into the host machine of the service and block the exploited credentials."
+      }
+    },
+
+    "if--id040": {
+      "type": "if-condition",
+      "description": "Are there any other systems under potential threat based on the collected information so far?",
+      "condition": "comprisedSystems => 1",
+      "on_false": ["single--id080"],
+      "on_true": ["single--id050"]
+    },
+
+    "single--id050": {
+      "type": "single",
+      "name": "Analyze event logs of the other systems",
+      "description": [
+        "Indicators can be:",
+        "Sudden increase in logins to a system",
+        "Multiple login failures to a system",
+        "Patterns in the frequency of the logins",
+        "Unusual command line inputs"
+      ],
+      "on_completion": "if--id060",
+      "command": {
+        "type": "manual",
+        "command": "Open the event entry of the agent and analyze the log data on the usernames the attacker applied."
+      }
+    },
+
+    "if--id060": {
+      "type": "if-condition",
+      "description": "Exist indicators of an incident in the other systems?",
+      "condition": "comprisedSystems => 1",
+      "on_false": ["single--id080"],
+      "on_true": ["single--id070"]
+    },
+
+    "single--id070": {
+      "type": "single",
+      "name": "Block access for exploited credentials",
+      "description": "",
+      "on_completion": "single--id070",
+      "command": {
+        "type": "manual",
+        "command": "Block the access for the exploited credentials to the system."
+      }
+    },
+
+    "single--id080": {
+      "type": "single",
+      "name": "Recreate user credentials",
+      "description": "",
+      "on_completion": "single--id080",
+      "command": {
+        "type": "automated",
+        "command": "Recreate the access credentials for all users of each affected system!"
+      }
+    },
+
+    "single--id090": {
+      "type": "single",
+      "name": "Recover all affected systems",
+      "description": "",
+      "on_completion": "single--id090",
+      "command": {
+        "type": "manual",
+        "command": "Go into the host machine(s) and restart all systems and services."
+      }
+    },
+
+    "single--id100": {
+      "type": "single",
+      "name": "Create post-incident report",
+      "description": "",
+      "on_completion": "end--id100",
+      "command": {
+        "type": "manual",
+        "command": "Create a report on the incident with all relevant information."
+      }
+    },
+
+    "end-id110": {
+      "type": "end"
+    }
+  }
+}
