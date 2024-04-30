@@ -1,0 +1,7 @@
+"description": [
+    "This playbook is created for incidents regarding the compromise of access credentials for a service. Potential indicators for this incident are:",
+    "Sudden increase in logins to a system",
+    "Multiple login failures to a system",
+    "Patterns in the frequency of the logins",
+    "Unusual command line inputs"
+]

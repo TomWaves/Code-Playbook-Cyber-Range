@@ -1,0 +1,176 @@
+{
+    "type": "playbook",
+    "spec_version": "1.1",
+    "id": "playbook--87445",
+    "name": "Detect Credential Access",
+    "description": "This playbook is created for incidents regarding the compromise of access credentials for a service. Potential indicators for this incident are: a sudden increase in logins to a system, multiple login failures to a system, pattersn in the frequency of the login (attempts), unusual command line inputs",
+    "playbook_types": [
+		"detection"
+        "investigation"
+		"remedition"
+    ],
+	
+    "created_by": "CSIRT--T01",
+    "created": "2022-12-12T16:30:00.000Z",
+    "modified": "2023-01-14T16:30:00.000Z",
+    "valid_from": "2023-01-14T16:30:0+-0.000Z",
+    "valid_until": "2023-02-14T16:30:00.000Z",
+    
+	"derived_from": [
+        "playbook--245806d8-d137-48d1-afe2-e534add32e0c"
+    ],
+
+    "priority": 3,
+    "severity": 70,
+    "impact": 5,
+    "labels": [
+        "brute_force"
+        "credential_access"
+    ]
+	
+	"workflow_start": "start--id00",
+	"workflow": {
+	
+		"start--id00": {
+			"type": "start",
+			"name": "Start Credential Access Playbook",
+			"on_completion": "paralell--id01"
+		},
+	
+		"paralell--id010": {
+			"type": "paralell",
+			"name": "Analyze log data on incident related information",
+			"description": "What were the final credentials the attacker used for access? Did the attacker use a static value for either the username or password? Note informations down!",
+			"next_steps": [
+				"single--id021",
+				"single--id022"
+			],
+			"command": [
+				"type": "manual",
+				"command": ""
+			]
+		},
+		
+		"single--id021":{
+			"type": "single",
+			"name": "Analyze nature and application of system",
+			"description": "What information is stored on the system? Exist relations to other systems? Is the system necessary for other processes? Note informations down!",
+			"on_completion": "single--id030",
+			"command": [
+				"type": "manual",
+				"command": ""
+			]
+		},
+		
+		"single--id022":{
+			"type": "single",
+			"name": "Identify other access privileges of the exploited user",
+			"description": "Does the owner of the compromised credentials have access to other systems? What are the corresponding usernames and passphrases? Note informations down!",
+			"on_completion": "single--id030",
+			"command": [
+				"type": "manual",
+				"command": ""
+			]
+		},
+		
+		"single--id030":{
+			"type": "single",
+			"name": "Freeze access for exploited credentials",
+			"description": "Block the access for the exploited credentials to the system and to isolate the attacker!",
+			"on_completion": "if--id040",
+			"command": [
+				"type": "manual",
+				"command": ""
+			]
+		},
+		
+		"if--id040":{
+			"type": "if-condition",
+			"description": "Besides the already compromised system, are there any other systems under potential threat based on the collected information so far?"
+			"condition": "comprisedSystems > 1",
+			"on_false": [ "paralell--id050" ],
+			"on_true": [ "single--id070" ]
+		},
+		
+		"parallel--id050":{
+			"type": "paralell",
+			"name": "Monitor the system for indicators showing signs of the attacker targeting this system",
+			"description": "Indicators can be: increase in logins to a system, multiple login failures to a system, pattersn in the frequency of the login (attempts), unusual command line inputs",
+			"next_steps": [
+				"single--id061",
+				"single--id062"
+			],
+			"command": [
+				"type": "manual",
+				"command": ""
+			]
+		},
+		
+		"single--id061":{
+			"type": "single",
+			"name": "Freeze access to the system(s)",
+			"description": "Block the access for the exploited credentials to the system!",
+			"on_completion": "single--id070",
+			"command": [
+				"type": "manual",
+				"command": ""
+			]
+		},
+		
+		"single--id062":{
+			"type": "single",
+			"name": "Create system backup and decouple the system(s)",
+			"description": "Backup the information stored on the systems and take it offline until the incident is resolved!",
+			"on_completion": "single--id070",
+			"command": [
+				"type": "manual",
+				"command": ""
+			]
+		},
+		
+		"single--id070":{
+			"type": "single",
+			"name": "Recreate user credentials for all affected systems",
+			"description": "Recreate access credentials for all user of each affected systems! ",
+			"on_completion": "single--id080",
+			"command": [
+				"type": "manual",
+				"command": ""
+			]
+		},
+		
+		"single--id080":{
+			"type": "single",
+			"name": "Re-setup the compromised systems!",
+			"description": "",
+			"on_completion": "single--id090",
+			"command": [
+				"type": "manual",
+				"command": ""
+			]
+		},
+		
+		"single--id090":{
+			"type": "single",
+			"name": "Create a report on the incident information!",
+			"description": "",
+			"on_completion": "end--id100",
+			"command": [
+				"type": "manual",
+				"command": ""
+			]
+		},
+		
+		"end-id100":{
+			"type": "end"
+		}
+		
+    },	
+	
+	"targets": { },
+	"extension_definitions": { },
+	"data_marking_definitions": { },
+	"signatures": [ ]
+}
+
+

@@ -1,0 +1,10 @@
+"parallel--id010": {
+	"type": "parallel",
+	"name": "Analyze event log",
+	"description": "This step will analyze the log entry of the alerting SIEM agent.",
+	"next_steps": ["single--id021", "single--id022"],
+	"command": {
+		"type": "manual",
+		"command": "Open the event entry of the agent and analyze the log data on the usernames the attacker applied."
+	}
+}

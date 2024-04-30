@@ -1,0 +1,16 @@
+ {
+  "playbook_types": ["detection", "investigation", "remediation"],
+
+  "created_by": "CSIRT--T01",
+  "created": "2022-12-12T16:30:00.000Z",
+  "modified": "2023-01-14T16:30:00.000Z",
+  "valid_from": "2023-01-14T16:30:0+-0.000Z",
+  "valid_until": "2023-04-14T16:30:00.000Z",
+
+  "derived_from": ["playbook--CAP-1"],
+
+  "priority": 3,
+  "severity": 70,
+  "impact": 5,
+  "labels": ["brute_force", "credential_access"],
+ }

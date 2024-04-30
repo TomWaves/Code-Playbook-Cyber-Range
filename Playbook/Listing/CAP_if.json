@@ -1,0 +1,7 @@
+"if--id040": {
+	"type": "if-condition",
+	"description": "Are there any other systems under potential threat based on the collected information so far?",
+	"condition": "compromisedSystems => 1",
+	"on_false": ["single--id080"],
+	"on_true": ["single--id050"]
+}
