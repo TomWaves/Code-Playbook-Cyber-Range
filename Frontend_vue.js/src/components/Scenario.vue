@@ -9,12 +9,14 @@
 
       <p><b>Wazuh</b>
       <p>Wazuh is open-source SIEM tool, which allows the monitoring of different devices in your network. On each device is a Wazuh Agent installed, which can be monitors different log files.<br><br>If the files log events with a possible releation to an incident, Wazuh shows these events in the <b>Security events</b> or <b>MITTRE ATT&amp;CK</b> dashboard. <br><br>You can also select a specific agent for monitoring.</p>
-      
+
+      <!-- Link in Line 16 war nur ein Quick-Fix, da es Probleme beim Einbetten des Bildes gab; Bild ist enthalten im Folder: https://github.com/TomWaves/Code-Playbook-Cyber-Range/blob/main/Metainformationen%20Szenario/Screenshot%202023-03-02%20at%2012-07-26%20Wazuh%20-%20Wazuh.png
       <div class="photo">  
       <img
           src="https://i.postimg.cc/ZqBYh3q6/Screenshot-2023-03-02-at-12-07-26-Wazuh-Wazuh.png"
         />
       </div>
+        -->
 
       <p><b><br>Scneario network:</b> 
       <p>The network consists of one HTTP server and a Linux machine with SSH access. Below are the known credentials for both machines:</p>
